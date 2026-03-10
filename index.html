@@ -2300,54 +2300,39 @@ window.addEventListener('load',function(){
 });
 
 </script>
-  <style>
-  #inspect-toggle-btn {
-    position: fixed;
-    bottom: 12px; right: 12px;
-    background: #00ffcc;
-    color: #000;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    z-index: 99999;
-    user-select: none;
-  }
-</style>
-<script>
-  function launchInspector() {
-    if (window.eruda) {
-      eruda.show();
-      eruda.toggle();
-      return;
-    }
-    var script = document.createElement('script');
-    script.src = "//cdn.jsdelivr.net/npm/eruda";
-    document.body.appendChild(script);
-    script.onload = () => {
-      eruda.init();
-      eruda.show();
-    };
-  }
-  // Remove any global inspect toggle button code here (if present)
+<style> 
+  #inspect-toggle-btn { 
+    position: fixed; 
+    bottom: 12px; 
+    right: 12px; 
+    background: #00ffcc; 
+    color: #000; 
+    font-weight: bold; 
+    padding: 6px 12px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    z-index: 99999; 
+    user-select: none; 
+  } 
+</style> 
 
-// Context menu and Inspect Element logic:
-document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-  // Load eruda if not loaded and show it
-  if (!window.eruda) {
-    var script = document.createElement('script');
-    script.src = "//cdn.jsdelivr.net/npm/eruda";
-    document.body.appendChild(script);
-    script.onload = () => {
-      eruda.init();
-      eruda.show();
-    };
-  } else {
-    eruda.show();
-  }
-});
+<script> 
+  function launchInspector() { 
+    if (window.eruda) { 
+      eruda.show(); 
+      eruda.toggle(); 
+      return; 
+    } 
+    var script = document.createElement('script'); 
+    script.src = "//cdn.jsdelivr.net/npm/eruda"; 
+    document.body.appendChild(script); 
+    script.onload = () => { 
+      eruda.init(); 
+      eruda.show(); 
+    }; 
+  } 
 
 </script>
+
 </body>
 </html>
