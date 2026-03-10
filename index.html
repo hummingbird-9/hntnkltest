@@ -2228,6 +2228,67 @@ function playCutscene(){
   setTimeout(function(){cf.style.opacity='1';},12500);
   setTimeout(function(){cr.style.display='inline-block';},15500);
 }
+// Create debug console elements
+var debugConsole = document.createElement('div');
+debugConsole.style.position = 'fixed';
+debugConsole.style.bottom = '0';
+debugConsole.style.left = '0';
+debugConsole.style.width = '100%';
+debugConsole.style.maxHeight = '200px';
+debugConsole.style.background = 'rgba(0,0,0,0.9)';
+debugConsole.style.color = '#0f0';
+debugConsole.style.fontFamily = 'monospace';
+debugConsole.style.fontSize = '12px';
+debugConsole.style.overflowY = 'auto';
+debugConsole.style.padding = '8px';
+debugConsole.style.display = 'none';
+debugConsole.style.zIndex = '100000';
+
+var inputLine = document.createElement('input');
+inputLine.type = 'text';
+inputLine.style.width = '100%';
+inputLine.style.background = '#000';
+inputLine.style.color = '#0f0';
+inputLine.style.border = 'none';
+inputLine.style.outline = 'none';
+inputLine.style.fontFamily = 'monospace';
+inputLine.style.fontSize = '13px';
+inputLine.style.padding = '6px 8px';
+inputLine.placeholder = 'Enter JS commands here...';
+
+var outputArea = document.createElement('pre');
+outputArea.style.margin = '0 0 8px 0';
+outputArea.style.whiteSpace = 'pre-wrap';
+
+debugConsole.appendChild(outputArea);
+debugConsole.appendChild(inputLine);
+document.body.appendChild(debugConsole);
+
+// Toggle console display on pressing '1'
+document.addEventListener('keydown', function(e) {
+  if (e.code === 'Digit1') {
+    debugConsole.style.display = (debugConsole.style.display === 'none') ? 'block' : 'none';
+    if(debugConsole.style.display === 'block') {
+      inputLine.focus();
+    }
+  }
+});
+
+// Evaluate command and show result or error
+inputLine.addEventListener('keydown', function(e){
+  if(e.key === 'Enter') {
+    var cmd = inputLine.value.trim();
+    if(cmd.length === 0) return;
+    try {
+      var result = eval(cmd);
+      outputArea.textContent += '> ' + cmd + '\n' + String(result) + '\n';
+    } catch(err) {
+      outputArea.textContent += '> ' + cmd + '\nError: ' + err.message + '\n';
+    }
+    outputArea.scrollTop = outputArea.scrollHeight;
+    inputLine.value = '';
+  }
+});
 
 // ══════════════════════════════════════════════════════
 // BOOT
